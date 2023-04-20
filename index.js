@@ -32,7 +32,7 @@ app.use(express.json());
 app.use('/images', express.static('images'));
 app.post('/auth/login', loginValidation, UserController.login);
 app.post('/auth/register', registerValidation, UserController.register);
-app.get('/auth/me', checkAuth, upload.single('image'), UserController.getMe);
+app.get('/auth/me', checkAuth, UserController.getMe);
 
 app.post(
     '/auth/avatar',
