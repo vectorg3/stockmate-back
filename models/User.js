@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema(
         },
         phone: {
             type: Number,
+            required: true,
         },
         company: {
             type: String,
