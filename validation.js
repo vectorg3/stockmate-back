@@ -16,10 +16,10 @@ export const registerValidation = [
     body('password', 'Минимальная длина пароля 8 символов').isLength({
         min: 8,
     }),
-    body('firstName', 'Имя должно содержать не менее 3 символов').isLength({
-        min: 3,
+    body('firstName', 'Имя должно содержать не менее 2 символов').isLength({
+        min: 2,
     }),
-    body('lastName', 'Фамилия должна содержать не менее 3 символов').isLength({
-        min: 3,
+    body('lastName', 'Фамилия должна содержать не менее 2 символов').isLength({
+        min: 2,
     }),
 ];

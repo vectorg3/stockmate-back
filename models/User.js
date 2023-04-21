@@ -16,6 +16,7 @@ const UserSchema = new mongoose.Schema(
         },
         company: {
             type: String,
+            required: true,
         },
         login: {
             type: String,
