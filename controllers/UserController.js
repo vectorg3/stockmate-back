@@ -118,6 +118,9 @@ export const getMe = async (req, res) => {
 };
 export const uploadAvatar = async (req, res) => {
     try {
+        let ext = req.file.originalname.split('.').pop()
+        let ext_arr = ['jpeg', 'png', 'jpg', 'gif', 'svg']
+        if(!ext_arr.includes(ext)) return res.status(400).json({ message: 'Неверный тип файла' });
         const user = await UserModel.findById(req.userId);
         user.avatar = `/images/${req.file.originalname}`;
         await user.save();
