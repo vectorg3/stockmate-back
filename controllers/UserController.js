@@ -121,7 +121,7 @@ export const uploadAvatar = async (req, res) => {
         const user = await UserModel.findById(req.userId);
         user.avatar = `/images/${req.file.originalname}`;
         await user.save();
-        return res.json({ message: 'Аватар успешно загружен' });
+        return res.json({ avatar: user.avatar });
     } catch (error) {
         console.log(error);
         return res.status(400).json({ message: 'Не удалось загрузить аватар' });
