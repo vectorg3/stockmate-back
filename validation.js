@@ -10,7 +10,7 @@ export const loginValidation = [
 ];
 
 export const registerValidation = [
-    body('login', 'Неверный формат почты').isLength({
+    body('login', 'Минимальная длина логина - 4 символа').isLength({
         min: 4,
     }),
     body('password', 'Минимальная длина пароля 8 символов').isLength({
