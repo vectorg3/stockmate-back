@@ -1,19 +1,21 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { validationResult } from 'express-validator';
+import { check, validationResult } from 'express-validator';
 import UserModel from '../models/User.js';
 
 export const register = async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json(errors.array());
+            return res.status(400).json(errors.array()[0]);
         }
-
         const password = req.body.password;
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
-
+        let checkUser =  await UserModel.findOne({ login: req.body.login});
+        if (checkUser) res.status(400).json({msg: 'Указанный логин уже занят!'})
+        checkUser =  await UserModel.findOne({ email: req.body.email});
+        if (checkUser) res.status(400).json({msg: 'Указанная почта уже занята!'})
         const doc = new UserModel({
             login: req.body.login,
             firstName: req.body.firstName,
@@ -45,7 +47,7 @@ export const register = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: 'Не удалось зарегистрироваться',
+            msg: 'Не удалось зарегистрироваться',
         });
     }
 };
@@ -56,7 +58,7 @@ export const login = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({
-                message: 'Пользователь не найден',
+                msg: 'Пользователь не найден',
             });
         }
 
@@ -67,7 +69,7 @@ export const login = async (req, res) => {
 
         if (!isValidPass) {
             return res.status(404).json({
-                message: 'Неверный логин или пароль',
+                msg: 'Неверный логин или пароль',
             });
         }
 
@@ -90,7 +92,7 @@ export const login = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: 'Не удалось авторизоваться',
+            msg: 'Не удалось авторизоваться',
         });
     }
 };
@@ -100,7 +102,7 @@ export const getMe = async (req, res) => {
         const user = await UserModel.findById(req.userId);
         if (!user) {
             return res.status(404).json({
-                message: 'Пользователь не найден',
+                msg: 'Пользователь не найден',
             });
         }
         const { passwordHash, createdAt, updatedAt, __v, ...userData } =
@@ -112,7 +114,7 @@ export const getMe = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: 'Нет доступа',
+            msg: 'Нет доступа',
         });
     }
 };
@@ -120,13 +122,13 @@ export const uploadAvatar = async (req, res) => {
     try {
         let ext = req.file.originalname.split('.').pop()
         let ext_arr = ['jpeg', 'png', 'jpg', 'gif', 'svg']
-        if(!ext_arr.includes(ext)) return res.status(400).json({ message: 'Неверный тип файла' });
+        if(!ext_arr.includes(ext)) return res.status(400).json({ msg: 'Неверный тип файла' });
         const user = await UserModel.findById(req.userId);
         user.avatar = `/images/${req.file.originalname}`;
         await user.save();
         return res.json({ avatar: user.avatar });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({ message: 'Не удалось загрузить фото, попробуйте позже' });
+        return res.status(400).json({ msg: 'Не удалось загрузить фото, попробуйте позже' });
     }
 };
