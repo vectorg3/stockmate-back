@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { check, validationResult } from 'express-validator';
+import { validationResult } from 'express-validator';
 import UserModel from '../models/User.js';
 
 export const register = async (req, res) => {
@@ -12,7 +12,9 @@ export const register = async (req, res) => {
         const password = req.body.password;
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
+
         let checkUser =  await UserModel.findOne({ login: req.body.login});
+        
         if (checkUser) res.status(400).json({msg: 'Указанный логин уже занят!'})
         checkUser =  await UserModel.findOne({ email: req.body.email});
         if (checkUser) res.status(400).json({msg: 'Указанная почта уже занята!'})

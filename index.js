@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 import { registerValidation, loginValidation } from './validation.js';
 import checkAuth from './utils/checkAuth.js';
 import * as UserController from './controllers/UserController.js';
+import * as ProductController from './controllers/ProductController.js';
+import * as StorageController from './controllers/StorageController.js';
+import * as InventoryController from './controllers/InventoryController.js'
 import cors from 'cors';
 import multer from 'multer';
 
@@ -30,17 +33,27 @@ const upload = multer({ storage });
 
 app.use(cors());
 app.use(express.json());
+// auth routes
 app.use('/images', express.static('images'));
 app.post('/auth/login', loginValidation, UserController.login);
 app.post('/auth/register', registerValidation, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe);
-
 app.post(
     '/auth/avatar',
     checkAuth,
     upload.single('image'),
     UserController.uploadAvatar
 );
+// product routes
+app.post('/products', checkAuth, ProductController.addProduct);
+app.get('/products', checkAuth, ProductController.getAll);
+//storage routes
+app.post('/storages', checkAuth, StorageController.addStorage);
+app.get('/storages', checkAuth, StorageController.getAll);
+//inventory routes
+app.post('/inventory', checkAuth, InventoryController.addInventory);
+app.get('/inventory', checkAuth, InventoryController.getAll);
+
 app.listen(process.env.PORT || 4444, (err) => {
     if (err) {
         ``;
