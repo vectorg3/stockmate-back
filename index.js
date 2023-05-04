@@ -11,8 +11,8 @@ import multer from 'multer';
 
 mongoose.set('strictQuery', false);
 mongoose
-    .connect(process.env.MONGODB_URI)
-    // .connect('mongodb+srv://admin:wwwwww@stockmate.lifa3av.mongodb.net/Stockmate?retryWrites=true&w=majority')
+    // .connect(process.env.MONGODB_URI)
+    .connect('mongodb+srv://admin:wwwwww@stockmate.lifa3av.mongodb.net/Stockmate?retryWrites=true&w=majority')
     .then(() => {
         console.log('Database Connected');
     })

@@ -15,9 +15,9 @@ export const register = async (req, res) => {
 
         let checkUser =  await UserModel.findOne({ login: req.body.login});
         
-        if (checkUser) res.status(400).json({msg: 'Указанный логин уже занят!'})
+        if (checkUser) return res.status(400).json({msg: 'Указанный логин уже занят!'})
         checkUser =  await UserModel.findOne({ email: req.body.email});
-        if (checkUser) res.status(400).json({msg: 'Указанная почта уже занята!'})
+        if (checkUser) return res.status(400).json({msg: 'Указанная почта уже занята!'})
         const doc = new UserModel({
             login: req.body.login,
             firstName: req.body.firstName,

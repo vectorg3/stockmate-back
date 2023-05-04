@@ -1,4 +1,4 @@
-import mongoose, {ObjectId} from 'mongoose';
+import mongoose from 'mongoose';
 
 const StorageSchema = new mongoose.Schema(
     {
@@ -20,8 +20,13 @@ const StorageSchema = new mongoose.Schema(
             required: true
         },
         schedule: {
-            type: String,
+            type: [Boolean],
             required: true
+        },
+        createdBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
         }
     }
 );

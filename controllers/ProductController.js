@@ -5,6 +5,7 @@ export const addProduct = async (req, res) => {
         const doc = new ProductModel({
             name: req.body.name,
             price: req.body.price,
+            createdBy: req.userId,
         });
 
         const newProduct = await doc.save();
@@ -12,6 +13,7 @@ export const addProduct = async (req, res) => {
             _id: newProduct._id,
             name: newProduct.name,
             price: newProduct.price,
+            createdBy: newInventory.createdBy,
         });
     } catch (err) {
         console.log(err);
