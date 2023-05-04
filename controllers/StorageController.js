@@ -11,6 +11,7 @@ export const addStorage = async (req, res) => {
             phone: req.body.phone,
             email: req.body.email,
             schedule: req.body.schedule,
+            isActive: req.body.isActive,
             createdBy: req.userId,
         });
 
@@ -22,6 +23,7 @@ export const addStorage = async (req, res) => {
             phone: newStorage.phone,
             email: newStorage.email,
             schedule: newStorage.schedule,
+            isActive: newStorage.isActive,
             createdBy: newStorage.createdBy,
         });
     } catch (err) {

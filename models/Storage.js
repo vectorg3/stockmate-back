@@ -23,6 +23,10 @@ const StorageSchema = new mongoose.Schema(
             type: [Boolean],
             required: true
         },
+        isActive: {
+            type: Boolean,
+            required: true,
+        },
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
