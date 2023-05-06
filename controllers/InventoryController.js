@@ -10,6 +10,7 @@ export const addInventory = async (req, res) => {
         const doc = new InventoryModel({
             productId: req.body.productId,
             productName: product.name,
+            productPrice: product.price,
             stock: req.body.stock,
             storageId: req.body.storageId,
             storageName: storage.name,
@@ -21,6 +22,7 @@ export const addInventory = async (req, res) => {
             _id: newInventory._id,
             productId: newInventory.productId,
             productName: newInventory.productName,
+            productPrice: newInventory.productPrice,
             stock: newInventory.stock,
             storageId: newInventory.storageId,
             storageName: newInventory.storageName,
