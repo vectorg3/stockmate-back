@@ -50,7 +50,7 @@ app.get('/products', checkAuth, ProductController.getAll);
 //storage routes
 app.post('/storages', checkAuth, StorageController.addStorage);
 app.get('/storages', checkAuth, StorageController.getAll);
-app.delete('/storages', checkAuth, StorageController.removeStorage);
+app.delete('/storages/:id', checkAuth, StorageController.removeStorage);
 //inventory routes
 app.post('/inventory', checkAuth, InventoryController.addInventory);
 app.get('/inventory', checkAuth, InventoryController.getAll);

@@ -40,11 +40,11 @@ export const addStorage = async (req, res) => {
 };
 export const removeStorage = async(req, res) => {
     try {
-        const candidate = await StorageModel.findById(req.body._id);
+        const candidate = await StorageModel.findById(req.params.id);
         if(!candidate) {
             return res.status(404).json({msg: "Такого склада нет!"})
         }
-        await StorageModel.findByIdAndRemove(req.body._id);
+        await StorageModel.findByIdAndRemove(req.params.id);
         res.json({
             msg: "Склад успешно удалён"
         })
