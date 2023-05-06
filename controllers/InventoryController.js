@@ -1,20 +1,29 @@
 import InventoryModel from '../models/Inventory.js';
+import ProductModel from '../models/Product.js';
+import StorageModel from '../models/Storage.js';
 
 export const addInventory = async (req, res) => {
     try {
+        const storage = await StorageModel.findById(req.body.storageId);
+        const product = await ProductModel.findById(req.body.productId);
+        if (!storage || !product) return res.status(404).json({msg: "Склад или продукт с указанным ID не найден!"});
         const doc = new InventoryModel({
-            product: req.body.productId,
+            productId: req.body.productId,
+            productName: product.name,
             stock: req.body.stock,
-            storage: req.body.storageId,
+            storageId: req.body.storageId,
+            storageName: storage.name,
             createdBy: req.userId,
         });
 
         const newInventory = await doc.save();
         res.json({
             _id: newInventory._id,
-            product: newInventory.product,
+            productId: newInventory.productId,
+            productName: newInventory.productName,
             stock: newInventory.stock,
-            storage: newInventory.storage,
+            storageId: newInventory.storageId,
+            storageName: newInventory.storageName,
             createdBy: newInventory.createdBy,
         });
     } catch (err) {
