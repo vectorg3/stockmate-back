@@ -11,13 +11,12 @@ const StorageSchema = new mongoose.Schema(
             required: true,
         },
         phone: {
-            type: Number,
-            required: true,
+            type: String,
+            default: '',
         },
         email: {
             type: String,
-            unique: true,
-            required: true
+            default: '',
         },
         schedule: {
             type: [Boolean],

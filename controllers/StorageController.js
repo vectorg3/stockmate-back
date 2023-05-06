@@ -2,9 +2,14 @@ import StorageModel from '../models/Storage.js';
 
 export const addStorage = async (req, res) => {
     try {
-        const emailCheck = await StorageModel.findOne({ email: req.body.email });
-        if (emailCheck) return res.status(400).json({msg: 'Указанная почта уже занята!'})
-
+        if(req.body.email) {
+            const check = await StorageModel.findOne({ email: req.body.email });
+            if (check) return res.status(400).json({msg: 'Указанная почта уже занята!'})
+        }
+        if(req.body.phone) {
+            const check = await StorageModel.findOne({ phone: req.body.phone });
+            if (check) return res.status(400).json({msg: 'Указанный номер телефона занят!'})
+        }
         const doc = new StorageModel({
             name: req.body.name,
             address: req.body.address,
@@ -16,7 +21,7 @@ export const addStorage = async (req, res) => {
         });
 
         const newStorage = await doc.save();
-        res.json({
+        res.json({  
             _id: newStorage._id,
             name: newStorage.name,
             address: newStorage.address,
