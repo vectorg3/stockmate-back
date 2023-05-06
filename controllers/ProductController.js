@@ -13,7 +13,7 @@ export const addProduct = async (req, res) => {
             _id: newProduct._id,
             name: newProduct.name,
             price: newProduct.price,
-            createdBy: newInventory.createdBy,
+            createdBy: newProduct.createdBy,
         });
     } catch (err) {
         console.log(err);
