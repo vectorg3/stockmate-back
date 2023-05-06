@@ -11,8 +11,8 @@ import multer from 'multer';
 
 mongoose.set('strictQuery', false);
 mongoose
-    .connect(process.env.MONGODB_URI)
-    // .connect('mongodb+srv://admin:wwwwww@stockmate.lifa3av.mongodb.net/Stockmate?retryWrites=true&w=majority')
+    // .connect(process.env.MONGODB_URI)
+    .connect('mongodb+srv://admin:wwwwww@stockmate.lifa3av.mongodb.net/Stockmate?retryWrites=true&w=majority')
     .then(() => {
         console.log('Database Connected');
     })
@@ -50,6 +50,7 @@ app.get('/products', checkAuth, ProductController.getAll);
 //storage routes
 app.post('/storages', checkAuth, StorageController.addStorage);
 app.get('/storages', checkAuth, StorageController.getAll);
+app.delete('/storages', checkAuth, StorageController.removeStorage);
 //inventory routes
 app.post('/inventory', checkAuth, InventoryController.addInventory);
 app.get('/inventory', checkAuth, InventoryController.getAll);

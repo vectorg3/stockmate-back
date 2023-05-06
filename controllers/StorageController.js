@@ -38,6 +38,23 @@ export const addStorage = async (req, res) => {
         });
     }
 };
+export const removeStorage = async(req, res) => {
+    try {
+        const candidate = await StorageModel.findById(req.body._id);
+        if(!candidate) {
+            return res.status(404).json({msg: "Такого склада нет!"})
+        }
+        await StorageModel.findByIdAndRemove(req.body._id);
+        res.json({
+            msg: "Склад успешно удалён"
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            msg: 'Не удалось удалить склад',
+        });
+    }
+}
 export const getAll = async (req, res) => {
     try {
         const storages = await StorageModel.find();
@@ -46,7 +63,7 @@ export const getAll = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: 'Не удалось получить склады',
+            msg: 'Не удалось получить склады',
         });
     }
 };

@@ -30,7 +30,7 @@ export const getAll = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: 'Не удалось получить товары',
+            msg: 'Не удалось получить товары',
         });
     }
 };
