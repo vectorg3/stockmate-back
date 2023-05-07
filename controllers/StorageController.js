@@ -49,7 +49,7 @@ export const removeStorage = async(req, res) => {
 }
 export const getAll = async (req, res) => {
     try {
-        const storages = await StorageModel.find();
+        const storages = await StorageModel.find({ createdBy: req.userId });
 
         res.json(storages);
     } catch (err) {

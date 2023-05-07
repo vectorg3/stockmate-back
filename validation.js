@@ -22,5 +22,4 @@ export const registerValidation = [
     body('lastName', 'Фамилия должна содержать не менее 2 символов').isLength({
         min: 2,
     }),
-    body('phone', 'Номер должен состоять из чисел!').isNumeric(),
 ];

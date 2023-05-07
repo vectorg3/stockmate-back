@@ -12,12 +12,17 @@ export const register = async (req, res) => {
         const password = req.body.password;
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
-
+        if (req.body.email){
+            let checkEmail =  await UserModel.findOne({ email: req.body.email});
+            if (checkEmail) return res.status(400).json({msg: 'Указанная почта уже занята!'})
+        }
+        if (req.body.phone){
+            let checkPhone =  await UserModel.findOne({ phone: req.body.phone});
+            if (checkPhone) return res.status(400).json({msg: 'Указанный номер телефона занят!'})
+        }
         let checkUser =  await UserModel.findOne({ login: req.body.login});
         
         if (checkUser) return res.status(400).json({msg: 'Указанный логин уже занят!'})
-        checkUser =  await UserModel.findOne({ email: req.body.email});
-        if (checkUser) return res.status(400).json({msg: 'Указанная почта уже занята!'})
         const doc = new UserModel({
             login: req.body.login,
             firstName: req.body.firstName,

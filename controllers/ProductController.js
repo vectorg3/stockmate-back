@@ -24,7 +24,7 @@ export const addProduct = async (req, res) => {
 };
 export const getAll = async (req, res) => {
     try {
-        const products = await ProductModel.find();
+        const products = await ProductModel.find({ createdBy: req.userId});
 
         res.json(products);
     } catch (err) {

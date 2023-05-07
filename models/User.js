@@ -11,8 +11,7 @@ const UserSchema = new mongoose.Schema(
             required: true,
         },
         phone: {
-            type: Number,
-            required: true,
+            type: String,
         },
         company: {
             type: String,
@@ -25,8 +24,6 @@ const UserSchema = new mongoose.Schema(
         },
         email: {
             type: String,
-            unique: true,
-            required: true
         },
         passwordHash: {
             type: String,

@@ -37,7 +37,7 @@ export const addInventory = async (req, res) => {
 };
 export const getAll = async (req, res) => {
     try {
-        const Inventory = await InventoryModel.find();
+        const Inventory = await InventoryModel.find({ createdBy: req.userId });
 
         res.json(Inventory);
     } catch (err) {
