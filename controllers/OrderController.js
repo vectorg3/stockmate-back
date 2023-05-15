@@ -2,14 +2,15 @@ import OrderModel from '../models/Order.js';
 
 export const addOrder = async (req, res) => {
     try {
-        // const totalPrice = req.body.positions.forEach(item => {
-        //     totalPrice += item.
-        // });
+        const totalPrice = req.body.positions.forEach(item => {
+            totalPrice += item.product.price * item.count
+        });
+
         const doc = new OrderModel({
             storageName: req.body.storageName,
             storageId: req.body.storageId,
             positions: req.body.positions,
-            orderPrice: req.body.orderPrice,
+            orderPrice: totalPrice,
             status: req.body.status,
             createdBy: req.userId,
         });
