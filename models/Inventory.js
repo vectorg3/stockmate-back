@@ -28,6 +28,10 @@ const InventorySchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        totalPrice: {
+            type: Number,
+            required: true,
+        },
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',

@@ -14,6 +14,7 @@ export const addInventory = async (req, res) => {
             stock: req.body.stock,
             storageId: req.body.storageId,
             storageName: storage.name,
+            totalPrice: req.body.stock * req.body.productPrice,
             createdBy: req.userId,
         });
 
@@ -26,6 +27,7 @@ export const addInventory = async (req, res) => {
             stock: newInventory.stock,
             storageId: newInventory.storageId,
             storageName: newInventory.storageName,
+            totalPrice: newInventory.totalPrice,
             createdBy: newInventory.createdBy,
         });
     } catch (err) {
@@ -38,7 +40,6 @@ export const addInventory = async (req, res) => {
 export const getAll = async (req, res) => {
     try {
         const Inventory = await InventoryModel.find({ createdBy: req.userId });
-
         res.json(Inventory);
     } catch (err) {
         console.log(err);

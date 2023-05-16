@@ -35,7 +35,6 @@ export const addOrder = async (req, res) => {
 export const getAll = async (req, res) => {
     try {
         const Orders = await OrderModel.find({ createdBy: req.userId });
-
         res.json(Orders);
     } catch (err) {
         console.log(err);
