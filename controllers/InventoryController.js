@@ -14,7 +14,7 @@ export const addInventory = async (req, res) => {
             stock: req.body.stock,
             storageId: req.body.storageId,
             storageName: storage.name,
-            totalPrice: req.body.stock * req.body.productPrice,
+            totalPrice: req.body.stock * product.price,
             createdBy: req.userId,
         });
 
