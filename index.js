@@ -6,6 +6,7 @@ import * as UserController from './controllers/UserController.js';
 import * as ProductController from './controllers/ProductController.js';
 import * as StorageController from './controllers/StorageController.js';
 import * as InventoryController from './controllers/InventoryController.js'
+import * as OrderController from './controllers/OrderController.js'
 import cors from 'cors';
 import multer from 'multer';
 
@@ -54,6 +55,9 @@ app.delete('/storages/:id', checkAuth, StorageController.removeStorage);
 //inventory routes
 app.post('/inventory', checkAuth, InventoryController.addInventory);
 app.get('/inventory', checkAuth, InventoryController.getAll);
+//orders routes
+app.post('/orders', checkAuth, OrderController.addOrder);
+app.get('/orders', checkAuth, OrderController.getAll);
 
 app.listen(process.env.PORT || 4444, (err) => {
     if (err) {
